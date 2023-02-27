@@ -32,7 +32,7 @@ public class UniqueKeyCheckService {
 		if(primary == null)
 			return false;
 		else
-			return false;
+			return true;
 	}
 	
 	public boolean checkDuplicateAdhaar(String adhaar)
@@ -48,9 +48,9 @@ public class UniqueKeyCheckService {
 	{
 		DoctorPrimary primary = this.duplicatePrimary.findByphoneNumber(phone);
 		if(primary == null)
-			return true;
+			return false;
 		else
-			 return false;
+			 return true;
 	}
 	
 	public boolean checkDuplicatePanCard(String pan)

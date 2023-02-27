@@ -100,12 +100,6 @@ public class DoctorPrimaryController {
 		questions.setSecurityQuestion(proxy.getSecurityQuestion());
 		
 		
-		//Using hibernate Transaction to manage transaction
-		//Configuration con = new Configuration();
-		//SessionFactory factory = con.buildSessionFactory();
-		//Session session = factory.openSession();
-		//Transaction transacation = session.beginTransaction();
-		
 		try
 		{
 		//getting the dependant properties
@@ -118,6 +112,26 @@ public class DoctorPrimaryController {
 		//if the med registration id is already present then exeption will be thrown
 		if(ismedIdPresent)
 		throw new UniqueKeyExistException("Registration id already Exist");
+		
+		//checking for email 
+		boolean isEmailPresent = this.uniqueKeyCheckService.checkDuplicateEmail(proxy.getEmail());
+		if(isEmailPresent)
+		throw new UniqueKeyExistException("Email Id already exists in database");
+		
+		//checking for adhaarCard
+		boolean isAdhaarPresent = this.uniqueKeyCheckService.checkDuplicateAdhaar(proxy.getAdhaarCard());
+		if(isAdhaarPresent)
+		throw new UniqueKeyExistException("Adhaar No already exists in database");
+		
+		//checking for panCard
+		boolean isPanPresent = this.uniqueKeyCheckService.checkDuplicatePanCard(proxy.getPanCard());
+		if(isPanPresent)
+		throw new UniqueKeyExistException("PanCard already exists in database");	
+		
+		//checking for phone no
+		boolean isPhonePresent = this.uniqueKeyCheckService.checkDuplicatePhone(proxy.getPhoneNumber());
+		if(isPhonePresent)
+		throw new UniqueKeyExistException("Phone No already exists in database");	
 		
 		DoctorMedRegistration insertDoctorMed = doctorMedRegistrationController.insertDoctorMed(registration);
 		
@@ -149,28 +163,6 @@ public class DoctorPrimaryController {
 		docPrimary.setSpecialization(proxy.getSpecialization());
 		docPrimary.setYearOfExperience(proxy.getYearOfExperience());
 		
-		//before inserting the data into doctor primary table we have check for unique constraints
-		
-		//checking for email 
-		//boolean isEmailPresent = this.uniqueKeyCheckService.checkDuplicateEmail(docPrimary.getEmail());
-		//if(isEmailPresent)
-		//throw new UniqueKeyExistException("Email Id already exists in database");
-		
-		//checking for adhaarCard
-		//boolean isAdhaarPresent = this.uniqueKeyCheckService.checkDuplicateAdhaar(docPrimary.getAdhaarCard());
-		//if(isAdhaarPresent)
-		//throw new UniqueKeyExistException("Adhaar No already exists in database");	
-		
-		//checking for panCard
-		//boolean isPanPresent = this.uniqueKeyCheckService.checkDuplicatePanCard(docPrimary.getPanCard());
-		//if(isPanPresent)
-		//throw new UniqueKeyExistException("PanCard already exists in database");		
-		
-		//checking for phone no
-		//boolean isPhonePresent = this.uniqueKeyCheckService.checkDuplicatePhone(docPrimary.getPhoneNumber());
-		//if(isPhonePresent)
-		//throw new UniqueKeyExistException("Phone No already exists in database");		
-		
 		DoctorPrimary doctor = this.doctorPrimaryServive.insertDoctor(docPrimary);
 	   
 	    //transacation.commit();
@@ -187,9 +179,7 @@ public class DoctorPrimaryController {
 			//transacation.rollback();
 			return new ResponseEntity<>(null,HttpStatus.CONFLICT);
 		}
-		/*
-		 * finally { session.close(); factory.close(); }
-		 */
+		
 		
 		
 		

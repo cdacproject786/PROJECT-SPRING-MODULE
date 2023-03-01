@@ -26,7 +26,7 @@ public class EmailSenderService {
 		message.setFrom("arbaazsayed1602@gmail.com");
 		
 		mailSender.send(message);
-		System.out.println("Mail sent successfully");
+		
 	}
 	
 	//This method is to send email with an attachment

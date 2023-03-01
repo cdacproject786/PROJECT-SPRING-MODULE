@@ -13,12 +13,15 @@ public class LoginService {
 	@Autowired
 	private DoctorPrimaryRepository doctorPrimaryRepository;
 	
+	@Autowired
+	private PasswordEncoderServie passwordEncoderServie;
+	
 	public boolean ValidateDoctorLogin(LoginProxy proxy)
 	{
 		DoctorPrimary primary = this.doctorPrimaryRepository.findByemail(proxy.getEmail());
 		if(primary!= null)
 		{
-			if(primary.getPwd().equals(proxy.getPwd()))
+			if(primary.getPwd().equals(this.passwordEncoderServie.encodePassword(proxy.getPwd())))
 			return true;
 			else
 			return false;

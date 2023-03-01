@@ -30,7 +30,7 @@ public class generateOtpRepository {
 		try
 		{
 			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery("select otp from otp_table where otp = (SELECT LAST_INSERT_ID()");
+			ResultSet result = statement.executeQuery("select otp from otp_table where otp = (SELECT LAST_INSERT_ID())");
 			while(result.next())
 			{
 				otp = result.getInt(1);
@@ -46,9 +46,5 @@ public class generateOtpRepository {
 		}
 	}
 		
-			
-
-		
-		
-	}
+}
 

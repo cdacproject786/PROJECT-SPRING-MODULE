@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Service.DoctorPrimaryServive;
+import com.project.Service.EmailSenderService;
 import com.project.Service.LoginService;
+import com.project.Service.PasswordEncoderServie;
 import com.project.Service.UniqueKeyCheckService;
 import com.project.entity.Address;
 import com.project.entity.DoctorAvailMaster;
@@ -61,6 +63,12 @@ public class DoctorPrimaryController {
 	
 	@Autowired
 	private UniqueKeyCheckService uniqueKeyCheckService;
+	
+	@Autowired
+	private PasswordEncoderServie passwordEncoderServie;
+	
+	@Autowired
+	private EmailSenderService emailSenderService;
 	
 	
 	@PostMapping("/doctor/register")
@@ -158,7 +166,11 @@ public class DoctorPrimaryController {
 		docPrimary.setPanCard(proxy.getPanCard());
 		docPrimary.setPhoneNumber(proxy.getPhoneNumber());
 		docPrimary.setProfileStatus('U');
-		docPrimary.setPwd(proxy.getPwd());
+		
+		//encrypting the password before setting it to the doctor object
+		String encryptedPassword = this.passwordEncoderServie.encodePassword(proxy.getPwd());
+		
+		docPrimary.setPwd(encryptedPassword); //the hashed password is set at this line
 		docPrimary.setSecurityQuestionsAnswer(proxy.getSecurityQuestionsAnswer());
 		docPrimary.setSpecialization(proxy.getSpecialization());
 		docPrimary.setYearOfExperience(proxy.getYearOfExperience());
@@ -166,6 +178,14 @@ public class DoctorPrimaryController {
 		DoctorPrimary doctor = this.doctorPrimaryServive.insertDoctor(docPrimary);
 	   
 	    //transacation.commit();
+		
+		//on successful registration an email has to be sent to the doctor
+		//implementing the email sender code
+		this.emailSenderService.sendSimpleEmail(doctor.getEmail(),
+				"<h1>You have been successfully logged into patient management system app.</h1>"
+				+ "<h4>All future communications will be done through this email </h4>"+"<h4>Your user-id is:"+doctor.getDoctorId()+"</h4>",
+				"Welcome to patient history management app");
+		
 	    return new ResponseEntity<>(doctor,HttpStatus.OK);
 	    
 		}

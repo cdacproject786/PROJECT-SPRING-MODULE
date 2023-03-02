@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class generateOtpRepository {
+public class GenerateOtpRepository {
 
 	public static void insertAutogenerateOtp()
 	{
 		    Connection con = CreateJdbcConnection.getJdbcConnection();
-		    try (PreparedStatement prepareStatement = con.prepareStatement("insert into otp_table (remark) values ('X')"))
+		    try (PreparedStatement prepareStatement = con.prepareStatement("insert into otp_table (remarks) values ('X')"))
 		    {
 		    	prepareStatement.executeUpdate();
 		    	con.close();
@@ -29,12 +29,14 @@ public class generateOtpRepository {
 		Connection con = CreateJdbcConnection.getJdbcConnection();
 		try
 		{
-			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery("select otp from otp_table where otp = (SELECT LAST_INSERT_ID())");
+			//Statement statement = con.createStatement();
+			//ResultSet result = statement.executeQuery("select otp from OTP_Table where OTP=(select last_insert_id())");
+			 
+			PreparedStatement pstmt = con.prepareStatement("select * from otp_table");
+			ResultSet result = pstmt.executeQuery();
 			while(result.next())
 			{
 				otp = result.getInt(1);
-				break;
 			}
 			
 			return otp;
@@ -42,6 +44,7 @@ public class generateOtpRepository {
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return 0;
 		}
 	}

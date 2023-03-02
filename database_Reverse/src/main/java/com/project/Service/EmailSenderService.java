@@ -23,7 +23,7 @@ public class EmailSenderService {
 		message.setTo(toEmail);
 		message.setSubject(subject);
 		message.setText(body);
-		message.setFrom("arbaazsayed1602@gmail.com");
+		message.setFrom("med_history_app@otlook.com");
 		
 		mailSender.send(message);
 		

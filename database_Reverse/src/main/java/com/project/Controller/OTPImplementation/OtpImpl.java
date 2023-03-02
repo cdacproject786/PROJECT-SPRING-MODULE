@@ -1,13 +1,14 @@
 package com.project.Controller.OTPImplementation;
 
-import com.project.jdbc.utils.generateOtpRepository;
+import com.project.jdbc.utils.GenerateOtpRepository;
+
 
 public class OtpImpl {
 	
 	
 	public int getOtp()
 	{
-		generateOtpRepository repo = new generateOtpRepository();
+		GenerateOtpRepository repo = new GenerateOtpRepository();
 		repo.insertAutogenerateOtp();
 		int otp = repo.getOtp();
 		return otp;

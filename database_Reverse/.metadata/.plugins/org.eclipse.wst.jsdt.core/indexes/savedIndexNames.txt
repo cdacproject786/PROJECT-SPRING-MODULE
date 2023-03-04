@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\Users\dell3\OneDrive\Desktop\springboot\database_Reverse\database_Reverse\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-615842323.index
-809845333.index
-123802095.index
-2882838812.index
-4158486897.index
-1628352745.index

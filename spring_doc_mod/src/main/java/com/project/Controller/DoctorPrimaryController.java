@@ -141,6 +141,7 @@ public class DoctorPrimaryController {
 		
 		//on successful registration an email has to be sent to the doctor
 		//implementing the email sender code
+		
 		/*
 		 * this.emailSenderService.sendSimpleEmail(doctor.getEmail(),
 		 * "<h1>You have been successfully logged into patient management system app.</h1>"
@@ -149,6 +150,7 @@ public class DoctorPrimaryController {
 		 * "Welcome to patient history management app");
 		 * System.out.println("mail sent");
 		 */
+		 
 	    return new ResponseEntity<>(doctor,HttpStatus.OK);
 	    
 		}

@@ -8,5 +8,5 @@ import com.project.entity.PatientMedLog;
 @Service
 public interface IPatientMedLogService {
 
-	public void insertPatientMedLog(List<PatientMedLog> patientMedLogs);
+	public void insertPatientMedLog(List<PatientMedLog> patientMedLogs,String email);
 }

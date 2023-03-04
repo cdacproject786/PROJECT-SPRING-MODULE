@@ -8,19 +8,34 @@ import org.springframework.stereotype.Service;
 
 import com.project.IService.IPatientMedLogService;
 import com.project.Repository.PatientMedLogRepository;
+import com.project.Repository.PatientPrimaryRepository;
 import com.project.entity.PatientMedLog;
+import com.project.entity.PatientPrimary;
 @Service
 public class PatientMedLogService implements IPatientMedLogService {
 
 	@Autowired
 	private PatientMedLogRepository patientMedLogRepository;
 	
-	public void insertPatientMedLog(List<PatientMedLog> patientMedLogs)
+	@Autowired
+	private PatientPrimaryRepository patientPrimaryRepository;
+	
+	
+	public void insertPatientMedLog(List<PatientMedLog> patientMedLogs,String email)
 	{
-		Iterator<PatientMedLog> iterator=patientMedLogs.iterator();
+		PatientPrimary patient = this.patientPrimaryRepository.findByemail(email);
 		
-		while(iterator.hasNext()) { 
-			PatientMedLog patientToInsert=iterator.next();
+		Iterator<PatientMedLog> iteratorForSetId=patientMedLogs.iterator();
+		
+		while(iteratorForSetId.hasNext())
+		iteratorForSetId.next().setPatientPrimary(patient.getUid());//setting the uid one by one
+			
+		
+		
+		Iterator<PatientMedLog> iteratorForInsertion=patientMedLogs.iterator();
+		
+		while(iteratorForInsertion.hasNext()) { 
+			PatientMedLog patientToInsert=iteratorForInsertion.next();
 			this.patientMedLogRepository.save(patientToInsert);
 		}
 	}

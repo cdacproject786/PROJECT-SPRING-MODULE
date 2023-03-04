@@ -21,10 +21,10 @@ public class PatientMedLogController {
 	@Autowired
 	PatientMedLogService patientMedLogService;
 	
-	@PostMapping("/patient/medlog")
-	public void addPatientMedLog(@RequestBody List<PatientMedLog> patientMedLogs)
+	@PostMapping("/doctor/medlog/{email}")
+	public void addPatientMedLog(@RequestBody List<PatientMedLog> patientMedLogs,@PathVariable String email)
 	{			
-			this.patientMedLogService.insertPatientMedLog(patientMedLogs);
+			this.patientMedLogService.insertPatientMedLog(patientMedLogs,email);
 		
 		
 	}	

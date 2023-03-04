@@ -22,10 +22,19 @@ public class OtpImplController {
 	EmailSenderService emailSenderService;
 
 	@PostMapping("/forgotpassword")
-	public void generateOtp(@RequestBody EmailProxy emailProxy)
+	public ResponseEntity<String> generateOtp(@RequestBody EmailProxy emailProxy)
 	{
-		int generatedOtp =  this.otpService.generateOtp();
-		this.emailSenderService.sendSimpleEmail(emailProxy.getEmail(), "<h1>The otp is "+generatedOtp+" please do not share with anyone.</h1>", "med-history-management system-reset password");
+		try
+		{
+			int generatedOtp =  this.otpService.generateOtp(emailProxy.getEmail());
+			this.emailSenderService.sendSimpleEmail(emailProxy.getEmail(), "<h1>The otp is "+generatedOtp+" please do not share with anyone.</h1>", "med-history-management system-reset password");
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+
 	}
 	
 	@PostMapping("/validateotp")
@@ -37,4 +46,6 @@ public class OtpImplController {
 		else
 			return new ResponseEntity<OtpValidationProxy>(HttpStatus.OK);
 	}
+	
+	
 }

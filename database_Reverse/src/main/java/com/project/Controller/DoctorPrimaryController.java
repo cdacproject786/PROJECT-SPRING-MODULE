@@ -75,7 +75,7 @@ public class DoctorPrimaryController {
 	@Transactional
 	public ResponseEntity<DoctorPrimary> registerDoctor(@RequestBody DoctorPrimaryRegistrationProxy proxy)
 	{
-		
+		System.out.println("entered controller");
 		Address address = new Address();
 		address.setAddressLine1(proxy.getAddressLine1());
 		address.setCity(proxy.getCity());
@@ -114,48 +114,49 @@ public class DoctorPrimaryController {
 	 
 		int questionId = securityQuestionsController.getQuestionId(proxy.getSecurityQuestion());
 		proxy.setSecurityQuestionsId(questionId);
-	
+		System.out.println("Extracted security q id");
 		//checking for duplicate in doctor-med-registration
 		boolean ismedIdPresent = this.uniqueKeyCheckService.checkDuplicateMedRegistration(registration.getMedicalRegId());
 		//if the med registration id is already present then exeption will be thrown
 		if(ismedIdPresent)
 		throw new UniqueKeyExistException("Registration id already Exist");
-		
+		System.out.println("ismedIdPresent exception checked");
 		//checking for email 
 		boolean isEmailPresent = this.uniqueKeyCheckService.checkDuplicateEmail(proxy.getEmail());
 		if(isEmailPresent)
 		throw new UniqueKeyExistException("Email Id already exists in database");
-		
+		System.out.println("isEmailPresent exception checked");
 		//checking for adhaarCard
 		boolean isAdhaarPresent = this.uniqueKeyCheckService.checkDuplicateAdhaar(proxy.getAdhaarCard());
 		if(isAdhaarPresent)
 		throw new UniqueKeyExistException("Adhaar No already exists in database");
-		
+		System.out.println("isAdhaarPresent exception checked");
 		//checking for panCard
 		boolean isPanPresent = this.uniqueKeyCheckService.checkDuplicatePanCard(proxy.getPanCard());
 		if(isPanPresent)
 		throw new UniqueKeyExistException("PanCard already exists in database");	
-		
+		System.out.println("isPanPresent exception checked");
 		//checking for phone no
 		boolean isPhonePresent = this.uniqueKeyCheckService.checkDuplicatePhone(proxy.getPhoneNumber());
 		if(isPhonePresent)
 		throw new UniqueKeyExistException("Phone No already exists in database");	
-		
+		System.out.println("isPhonePresent exception checked");
+		System.out.println("Exception block complete");
 		DoctorMedRegistration insertDoctorMed = doctorMedRegistrationController.insertDoctorMed(registration);
 		
-		
+		System.out.println("DoctorMedRegistration block complete");
 		DoctorEstablishment insertEstablishment = doctorEstablishmentController.insertEstablishment(establishment);
-		
+		System.out.println("DoctorEstablishment block complete");
 		DoctorAvailMaster insertAvailability = doctorAvailMasterController.insertAvailability(master);
-		
-		Address insertAddress = addressController.insertAddress(address);
-		
+		System.out.println("DoctorAvailMaster block complete");
+		int insertAddressId = addressController.insertAddress(address);
+		System.out.println("Address block complete");
 		DoctorPrimary docPrimary = new DoctorPrimary();
 		docPrimary.setDoctorId(insertAvailability.getDoctorId());
-		docPrimary.setAddress(insertAddress.getAddressId());
+		docPrimary.setAddress(insertAddressId);
 		docPrimary.setDoctorEstablishment(insertEstablishment.getEid());
 		docPrimary.setDoctorMedRegistration(insertDoctorMed.getMedicalRegId());
-		docPrimary.setDoctorAvailMaster(insertAvailability.getDoctorId());
+		//docPrimary.setDoctorAvailMaster(insertAvailability.getDoctorId());
 		docPrimary.setSecurityQuestions(questionId);
 		docPrimary.setDoctorId(insertAvailability.getDoctorId());
 		docPrimary.setAdhaarCard(proxy.getAdhaarCard());
@@ -166,26 +167,29 @@ public class DoctorPrimaryController {
 		docPrimary.setPanCard(proxy.getPanCard());
 		docPrimary.setPhoneNumber(proxy.getPhoneNumber());
 		docPrimary.setProfileStatus('U');
-		
+		System.out.println("Doctor primary object set");
 		//encrypting the password before setting it to the doctor object
 		String encryptedPassword = this.passwordEncoderServie.encodePassword(proxy.getPwd());
-		
+		System.out.println("password encrypted");
 		docPrimary.setPwd(encryptedPassword); //the hashed password is set at this line
 		docPrimary.setSecurityQuestionsAnswer(proxy.getSecurityQuestionsAnswer());
 		docPrimary.setSpecialization(proxy.getSpecialization());
 		docPrimary.setYearOfExperience(proxy.getYearOfExperience());
-		
+		System.out.println("before inserting doctor primary");
 		DoctorPrimary doctor = this.doctorPrimaryServive.insertDoctor(docPrimary);
-	   
-	    //transacation.commit();
+		System.out.println("after inserting doctor primary");
+	    
 		
 		//on successful registration an email has to be sent to the doctor
 		//implementing the email sender code
-		this.emailSenderService.sendSimpleEmail(doctor.getEmail(),
-				"<h1>You have been successfully logged into patient management system app.</h1>"
-				+ "<h4>All future communications will be done through this email </h4>"+"<h4>Your user-id is:"+doctor.getDoctorId()+"</h4>",
-				"Welcome to patient history management app");
-		
+		/*
+		 * this.emailSenderService.sendSimpleEmail(doctor.getEmail(),
+		 * "<h1>You have been successfully logged into patient management system app.</h1>"
+		 * + "<h4>All future communications will be done through this email </h4>"
+		 * +"<h4>Your user-id is:"+doctor.getDoctorId()+"</h4>",
+		 * "Welcome to patient history management app");
+		 * System.out.println("mail sent");
+		 */
 	    return new ResponseEntity<>(doctor,HttpStatus.OK);
 	    
 		}

@@ -17,6 +17,7 @@ public class AddressInsertRepository {
 	 @Transactional
 	 public void insertWithQuery(Address address)
 	 {
+		 System.out.println("before inserting address in repository");
 		 entityManager.createNativeQuery("insert into address (Address_line_1,User_State,City,PinCode,Country) values (?,?,?,?,?)")
 		 .setParameter(1, address.getAddressLine1())
 		 .setParameter(2, address.getUserState())
@@ -24,5 +25,6 @@ public class AddressInsertRepository {
 		 .setParameter(4, address.getPinCode())
 		 .setParameter(5, address.getCountry())
 		 .executeUpdate();
+		 System.out.println("after inserting address in repository");
 	 }
 }

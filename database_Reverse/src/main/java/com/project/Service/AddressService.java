@@ -34,9 +34,12 @@ public class AddressService {
 		
 	}
 	
-	public Address insertAddressForDocReg(Address address)
+	public int insertAddressForDocReg(Address address)
 	{
-		return this.addressRepository.save(address);
+		//this.addressRepository.insertAddressWithNativeQuery(address.getAddressLine1(), address.getUserState(), address.getCity(), address.getPinCode(), address.getCountry());
+		this.addressInsertRepository.insertWithQuery(address);
+		System.out.println("Address insertedsuccess fully");
+		return  this.addressRepository.getAddressBySearch(address.getAddressLine1(), address.getCity(), address.getPinCode());
 	}
 	
 }

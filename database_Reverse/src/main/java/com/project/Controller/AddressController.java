@@ -23,7 +23,7 @@ public class AddressController {
 		this.addressService.insertAddress(address);
 	}
 	
-	public Address insertAddress(Address address)
+	public int insertAddress(Address address)
 	{
 		return this.addressService.insertAddressForDocReg(address);
 	}

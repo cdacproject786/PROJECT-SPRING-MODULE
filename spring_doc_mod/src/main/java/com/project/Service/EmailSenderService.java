@@ -11,8 +11,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.IEmailSenderService;
+
 @Service
-public class EmailSenderService {
+public class EmailSenderService implements IEmailSenderService{
 	
 	@Autowired
 	private JavaMailSender mailSender;

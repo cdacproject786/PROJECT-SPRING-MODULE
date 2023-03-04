@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.ISecurityQuestionsService;
 import com.project.Repository.SecurityQuestionsRepository;
 import com.project.entity.SecurityQuestions;
 
 @Service
-public class SecurityQuestionsService {
+public class SecurityQuestionsService implements ISecurityQuestionsService {
 
 	@Autowired
 	private SecurityQuestionsRepository securityQuestionsRepository;

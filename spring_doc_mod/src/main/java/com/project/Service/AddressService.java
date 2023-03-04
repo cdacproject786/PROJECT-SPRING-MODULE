@@ -3,15 +3,17 @@ package com.project.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.IAddressService;
 import com.project.Repository.AddressInsertRepository;
 import com.project.Repository.AddressRepository;
 import com.project.entity.Address;
 import com.project.entity.proxy.AddressProxy;
 
 @Service
-public class AddressService {
+public class AddressService implements IAddressService{
 	@Autowired
 	private AddressRepository addressRepository;
+	
 	@Autowired
 	private AddressInsertRepository addressInsertRepository;
 	
@@ -36,7 +38,7 @@ public class AddressService {
 	
 	public int insertAddressForDocReg(Address address)
 	{
-		//this.addressRepository.insertAddressWithNativeQuery(address.getAddressLine1(), address.getUserState(), address.getCity(), address.getPinCode(), address.getCountry());
+		
 		this.addressInsertRepository.insertWithQuery(address);
 		System.out.println("Address insertedsuccess fully");
 		return  this.addressRepository.getAddressBySearch(address.getAddressLine1(), address.getCity(), address.getPinCode());

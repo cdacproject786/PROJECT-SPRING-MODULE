@@ -2,7 +2,9 @@ package com.project.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EmailSenderUtilsService {
+import com.project.IService.IEmailSenderUtilsService;
+
+public class EmailSenderUtilsService implements IEmailSenderUtilsService{
 	
 	@Autowired
 	private EmailSenderService emailSenderService;

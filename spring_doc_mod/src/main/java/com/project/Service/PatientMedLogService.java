@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.IPatientMedLogService;
 import com.project.Repository.PatientMedLogRepository;
 import com.project.entity.PatientMedLog;
 @Service
-public class PatientMedLogService {
+public class PatientMedLogService implements IPatientMedLogService {
 
 	@Autowired
 	private PatientMedLogRepository patientMedLogRepository;

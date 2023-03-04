@@ -3,12 +3,13 @@ package com.project.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.IDoctorAvailMasterService;
 import com.project.Repository.DoctorAvailMasterRepository;
 import com.project.entity.DoctorAvailMaster;
 import com.project.entity.proxy.DoctorAvailMasterProxy;
 
 @Service
-public class DoctorAvailMasterService {
+public class DoctorAvailMasterService implements IDoctorAvailMasterService {
 	@Autowired
 	private DoctorAvailMasterRepository doctorAvailMasterRepository;
 	

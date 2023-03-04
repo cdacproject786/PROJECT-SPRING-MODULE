@@ -9,8 +9,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.IService.IFileUploadService;
+
 @Service
-public class FileUploadService implements FileUpload {
+public class FileUploadService implements IFileUploadService {
 
 	@Override
 	public String uploadImage(String path, MultipartFile file) throws IOException {

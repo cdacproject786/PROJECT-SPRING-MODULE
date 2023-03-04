@@ -3,13 +3,14 @@ package com.project.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.IService.IUniqueKeyCheckService;
 import com.project.Repository.DuplicateEntryCheckForDoctorMedRegistrationRepository;
 import com.project.Repository.DuplicateEntryCheckForDoctorPrimaryRepository;
 import com.project.entity.DoctorMedRegistration;
 import com.project.entity.DoctorPrimary;
 
 @Service
-public class UniqueKeyCheckService {
+public class UniqueKeyCheckService implements IUniqueKeyCheckService{
 	
 	@Autowired
 	DuplicateEntryCheckForDoctorMedRegistrationRepository duplicateId;

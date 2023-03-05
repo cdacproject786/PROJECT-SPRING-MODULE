@@ -37,9 +37,9 @@ public class FileUploadService implements IFileUploadService {
 		//copy file
 		
 		Files.copy(file.getInputStream(), Paths.get(filePath));
-		
+		System.out.println(filePath);
 	
-		return name;
+		return filePath;
 	}
 
 	

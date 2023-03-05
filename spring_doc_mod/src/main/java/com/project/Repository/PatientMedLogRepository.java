@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.entity.PatientMedLog;
 
-public interface PatientMedLogRepository extends JpaRepository<PatientMedLog, Integer> {
+public interface PatientMedLogRepository extends JpaRepository<PatientMedLog, String> {
 
 }

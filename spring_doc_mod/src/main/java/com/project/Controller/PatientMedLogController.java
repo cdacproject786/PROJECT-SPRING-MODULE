@@ -28,11 +28,11 @@ public class PatientMedLogController {
 		
 		
 	}	
-//	
-//	@GetMapping("/patient/medlog/{id}")//To be written
-//	public PatientMedLogProxy getPatientMedLog(@PathVariable Integer id)
-//	{
-//		return this.patientMedLogService.getPatientMedLogById(id);
-//	}
-//	
+	
+	@GetMapping("/doctor/medlog/{email}")
+	public List<PatientMedLog> getPatientMedLog(@PathVariable String email)
+	{
+		return this.patientMedLogService.getPatientMedLogById(email);
+	}
+	
 }

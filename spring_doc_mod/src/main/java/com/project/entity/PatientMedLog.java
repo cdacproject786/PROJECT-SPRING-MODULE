@@ -24,8 +24,8 @@ import javax.persistence.TemporalType;
 @Table(name = "patient_med_log")
 public class PatientMedLog implements java.io.Serializable {
 
-	private Integer medLogId;
-	private int patientPrimary;
+	private String medLogId;
+	private String  uid;
 	private String prescription;
 	private String labReport;
 	//private Date lastUpdated;
@@ -42,10 +42,10 @@ public class PatientMedLog implements java.io.Serializable {
 	}
 
 
-	public PatientMedLog(int patientPrimary, String prescription, String labReport, Date lastUpdated,
+	public PatientMedLog(String uid, String prescription, String labReport, Date lastUpdated,
 			String drugName, int morning, int afternoon, int evening, String extraCol1, String extraCol2,
 			String extraCol3, Set patientLabReports) {
-		this.patientPrimary = patientPrimary;
+		this.uid = uid;
 		this.prescription = prescription;
 		this.labReport = labReport;
 		//this.lastUpdated = lastUpdated;
@@ -63,23 +63,23 @@ public class PatientMedLog implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "MED_LOG_ID", unique = true, nullable = false)
-	public Integer getMedLogId() {
+	public String getMedLogId() {
 		return this.medLogId;
 	}
 
-	public void setMedLogId(Integer medLogId) {
+	public void setMedLogId(String medLogId) {
 		this.medLogId = medLogId;
 	}
 
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@Join
 	@Column(name = "UID")
-	public int getPatientPrimary() {
-		return this.patientPrimary;
+	public String getuid() {
+		return this.uid;
 	}
 
-	public void setPatientPrimary(int patientPrimary) {
-		this.patientPrimary = patientPrimary;
+	public void setuid(String uid) {
+		this.uid = uid;
 	}
 
 	@Column(name = "PRESCRIPTION")
@@ -167,4 +167,13 @@ public class PatientMedLog implements java.io.Serializable {
 	 * public void setPatientLabReports(Set patientLabReports) {
 	 * this.patientLabReports = patientLabReports; }
 	 */
+
+
+	@Override
+	public String toString() {
+		return "PatientMedLog [medLogId=" + medLogId + ", uid=" + uid + ", prescription=" + prescription
+				+ ", labReport=" + labReport + ", drugName=" + drugName + ", morning=" + morning + ", afternoon="
+				+ afternoon + ", evening=" + evening + "]";
+	}
+	
 }

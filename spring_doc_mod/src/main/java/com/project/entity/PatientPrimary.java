@@ -28,7 +28,7 @@ import javax.persistence.UniqueConstraint;
 		@UniqueConstraint(columnNames = "SECURITY_QUESTIONS_ID") })
 public class PatientPrimary implements java.io.Serializable {
 
-	private Integer uid;
+	private String uid;
 	private Address address;
 	private PatientMedRecord patientMedRecord;
 	private SecurityQuestions securityQuestions;
@@ -99,11 +99,11 @@ public class PatientPrimary implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "UID", unique = true, nullable = false)
-	public Integer getUid() {
+	public String getUid() {
 		return this.uid;
 	}
 
-	public void setUid(Integer uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 

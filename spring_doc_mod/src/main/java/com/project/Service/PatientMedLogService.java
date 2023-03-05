@@ -1,5 +1,6 @@
 package com.project.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,8 +10,11 @@ import org.springframework.stereotype.Service;
 import com.project.IService.IPatientMedLogService;
 import com.project.Repository.PatientMedLogRepository;
 import com.project.Repository.PatientPrimaryRepository;
+import com.project.entity.Address;
 import com.project.entity.PatientMedLog;
 import com.project.entity.PatientPrimary;
+import com.project.entity.proxy.AddressProxy;
+import com.project.entity.proxy.PatientMedLogProxy;
 @Service
 public class PatientMedLogService implements IPatientMedLogService {
 
@@ -28,7 +32,7 @@ public class PatientMedLogService implements IPatientMedLogService {
 		Iterator<PatientMedLog> iteratorForSetId=patientMedLogs.iterator();
 		
 		while(iteratorForSetId.hasNext())
-		iteratorForSetId.next().setPatientPrimary(patient.getUid());//setting the uid one by one
+		iteratorForSetId.next().setuid(patient.getUid());//setting the uid one by one
 			
 		
 		
@@ -38,5 +42,25 @@ public class PatientMedLogService implements IPatientMedLogService {
 			PatientMedLog patientToInsert=iteratorForInsertion.next();
 			this.patientMedLogRepository.save(patientToInsert);
 		}
+	}
+	
+	public List<PatientMedLog> getPatientMedLogById(String email)
+	{
+		//ArrayList<Integer> list=new ArrayList<Integer>();
+		//Retrieving the patient primary object for UID
+		PatientPrimary patientPrimary = this.patientPrimaryRepository.findByemail(email);
+		
+		String uid=patientPrimary.getUid();
+		
+		//list.add(uid);
+		
+		
+		PatientMedLog patientMedLog = this.patientMedLogRepository.getById(uid);
+		List<PatientMedLog> patientMedLogs=new ArrayList<PatientMedLog>();
+		patientMedLogs.add(patientMedLog);
+		System.out.println(patientMedLogs);
+		
+		return patientMedLogs;
+		
 	}
 }

@@ -50,7 +50,7 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public List<DoctorPrimary> getAllUnVerifiedDoctors() {
-		return this.doctorPrimaryRepository.getAllUnverifiedDoctors();
+		return this.doctorPrimaryRepository.findByprofileStatus('U');
 		
 	}
 	

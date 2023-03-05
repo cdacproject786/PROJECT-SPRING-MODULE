@@ -20,11 +20,8 @@ public interface DoctorPrimaryRepository extends JpaRepository<DoctorPrimary, In
 
 
 	public DoctorPrimary findByemail(String email);
-	
 
-	
-	@Query(value = "select * from doctor_primary where profile_status = 'U'",nativeQuery = true)
-	public List<DoctorPrimary> getAllUnverifiedDoctors(); 
+	public List<DoctorPrimary> findByprofileStatus(char status); 
 	
 	 
 

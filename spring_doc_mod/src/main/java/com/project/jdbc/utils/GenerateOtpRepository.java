@@ -21,6 +21,14 @@ public class GenerateOtpRepository {
 				
 				e.printStackTrace();
 			}
+		    finally {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 	}
 	
 	public static int getOtp()
@@ -29,9 +37,6 @@ public class GenerateOtpRepository {
 		Connection con = CreateJdbcConnection.getJdbcConnection();
 		try
 		{
-			//Statement statement = con.createStatement();
-			//ResultSet result = statement.executeQuery("select otp from OTP_Table where OTP=(select last_insert_id())");
-			 
 			PreparedStatement pstmt = con.prepareStatement("select * from otp_table");
 			ResultSet result = pstmt.executeQuery();
 			while(result.next())
@@ -46,6 +51,14 @@ public class GenerateOtpRepository {
 		{
 			e.printStackTrace();
 			return 0;
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 		

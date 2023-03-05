@@ -1,21 +1,32 @@
 package com.project.Repository;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.project.entity.Address;
 import com.project.entity.DoctorPrimary;
-
 @Repository
 public interface DoctorPrimaryRepository extends JpaRepository<DoctorPrimary, Integer> {
+	
+
 
 	public DoctorPrimary findByemail(String email);
 	
-	@Modifying
-	@Query("UPDATE Doctor_Primary doctor SET doctor.Profile_Status =?1 WHERE doctor.doctor_Id =?2")
-	void updateDoctorPrimary(char profileStatus,int doctorId);
-		
+
+	
+	@Query(value = "select * from doctor_primary where profile_status = 'U'",nativeQuery = true)
+	public List<DoctorPrimary> getAllUnverifiedDoctors(); 
+	
+	 
+
 }
 

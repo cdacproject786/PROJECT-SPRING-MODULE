@@ -3,6 +3,8 @@ package com.project.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,11 +31,7 @@ public class AdminController {
 		return this.adminService.getAllDoctor();
 	}
 	
-	@GetMapping("/admin/retrieveonedoctor/{doctorId}")
-	public DoctorPrimaryProxy getOneDoctor(@PathVariable int doctorId)
-	{
-		return this.adminService.getOneDoctor(doctorId);
-	}
+
 	@PostMapping("/admin/verifieddoctor")
 	public void updateDoctor(@RequestBody DoctorPrimary doctorPrimary)
 	{
@@ -45,9 +43,18 @@ public class AdminController {
 		return this.adminService.getAllPatient();
 	}
 	
-	@GetMapping("/admin/retrieveonepatient/{uid}")
-	public PatientPrimaryProxy getOnePatient(@PathVariable int uid)
-	{
-		return this.adminService.getOnePatient(uid);
-	}
+    @GetMapping("/admin/getUDoctors")
+    public ResponseEntity<List<DoctorPrimary>> getAllUnverifiedDoctors()
+    {
+    	try
+    	{
+    		List<DoctorPrimary> allUnVerifiedDoctors = this.adminService.getAllUnVerifiedDoctors();
+        	return new ResponseEntity<List<DoctorPrimary>>(allUnVerifiedDoctors, HttpStatus.OK);
+    	}
+    	catch (Exception e)
+    	{
+    		return new ResponseEntity<>(null, HttpStatus.OK);
+    	}
+    
+    }
 }

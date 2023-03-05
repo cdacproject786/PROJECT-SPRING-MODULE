@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 public class PatientMedLog implements java.io.Serializable {
 
 	private String medLogId;
-	private String  uid;
+	private int  uid;
 	private String prescription;
 	private String labReport;
 	//private Date lastUpdated;
@@ -42,7 +42,7 @@ public class PatientMedLog implements java.io.Serializable {
 	}
 
 
-	public PatientMedLog(String uid, String prescription, String labReport, Date lastUpdated,
+	public PatientMedLog(int uid, String prescription, String labReport, Date lastUpdated,
 			String drugName, int morning, int afternoon, int evening, String extraCol1, String extraCol2,
 			String extraCol3, Set patientLabReports) {
 		this.uid = uid;
@@ -74,11 +74,11 @@ public class PatientMedLog implements java.io.Serializable {
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@Join
 	@Column(name = "UID")
-	public String getuid() {
+	public int getuid() {
 		return this.uid;
 	}
 
-	public void setuid(String uid) {
+	public void setuid(int uid) {
 		this.uid = uid;
 	}
 
@@ -169,11 +169,6 @@ public class PatientMedLog implements java.io.Serializable {
 	 */
 
 
-	@Override
-	public String toString() {
-		return "PatientMedLog [medLogId=" + medLogId + ", uid=" + uid + ", prescription=" + prescription
-				+ ", labReport=" + labReport + ", drugName=" + drugName + ", morning=" + morning + ", afternoon="
-				+ afternoon + ", evening=" + evening + "]";
-	}
+	
 	
 }

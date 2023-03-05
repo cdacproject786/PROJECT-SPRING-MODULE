@@ -50,15 +50,15 @@ public class PatientMedLogService implements IPatientMedLogService {
 		//Retrieving the patient primary object for UID
 		PatientPrimary patientPrimary = this.patientPrimaryRepository.findByemail(email);
 		
-		String uid=patientPrimary.getUid();
+		int uid=patientPrimary.getUid();
 		
 		//list.add(uid);
 		
 		
-		PatientMedLog patientMedLog = this.patientMedLogRepository.getById(uid);
-		List<PatientMedLog> patientMedLogs=new ArrayList<PatientMedLog>();
-		patientMedLogs.add(patientMedLog);
-		System.out.println(patientMedLogs);
+		//PatientMedLog patientMedLog = this.patientMedLogRepository.getById(uid);
+		List<PatientMedLog> patientMedLogs = this.patientMedLogRepository.findByuid(uid);
+		
+		
 		
 		return patientMedLogs;
 		

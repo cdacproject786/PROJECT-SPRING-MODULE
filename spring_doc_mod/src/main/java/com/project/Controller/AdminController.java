@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.project.Service.AdminService;
+import com.project.Service.LoginService;
+import com.project.entity.AdminPrimary;
 import com.project.entity.DoctorPrimary;
 import com.project.entity.PatientPrimary;
 import com.project.entity.proxy.DoctorPrimaryProxy;
@@ -25,26 +27,46 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@GetMapping("/admin/retrievealldoctor")
-	public List<DoctorPrimary> getAllDoctors()
+	@Autowired
+	private LoginService loginService;
+	
+	@GetMapping("/admin/doctor")
+	public ResponseEntity<List<DoctorPrimary>> getAllDoctors()
 	{
-		return this.adminService.getAllDoctor();
-	}
+		try {
+		List<DoctorPrimary> doctorPrimaries =  this.adminService.getAllDoctor();
+		return new ResponseEntity<List<DoctorPrimary>>(doctorPrimaries, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(null,HttpStatus.OK);
+		}
+		}
 	
 
-	@PostMapping("/admin/verifieddoctor")
-	public void updateDoctor(@RequestBody DoctorPrimary doctorPrimary)
+	@PostMapping("/admin/doctor")
+	public ResponseEntity updateDoctor(@RequestBody DoctorPrimary doctorPrimary)
 	{
 		 this.adminService.updateDoctor(doctorPrimary);
+		 return new ResponseEntity<>(HttpStatus.OK);
 	}
-	@GetMapping("/admin/retrieveallpatient")
-	public List<PatientPrimary> getAllPatient()
+	@GetMapping("/admin/patient")
+	public ResponseEntity<List<PatientPrimary>> getAllPatient()
 	{
-		return this.adminService.getAllPatient();
+		
+		try {
+		List<PatientPrimary> patientPrimary =  this.adminService.getAllPatient();
+		return new ResponseEntity<List<PatientPrimary>>(patientPrimary, HttpStatus.OK);
+		}
+		catch (Exception e)
+		{
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}
 	}
 	
-    @GetMapping("/admin/getUDoctors")
-    public ResponseEntity<List<DoctorPrimary>> getAllUnverifiedDoctors()
+	
+    @GetMapping("/admin/doctors")
+    public ResponseEntity<List<DoctorPrimary>> getUnverifiedDoctors()
     {
     	try
     	{
@@ -56,5 +78,12 @@ public class AdminController {
     		return new ResponseEntity<>(null, HttpStatus.OK);
     	}
     
+    }
+    
+    @PostMapping("/admin/login")
+    public ResponseEntity<Boolean> loginAdmin(@RequestBody AdminPrimary adminPrimary)
+    {
+    	boolean isPresent = this.loginService.ValidateAdmin(adminPrimary);
+    	return new ResponseEntity<Boolean>(isPresent, HttpStatus.OK);
     }
 }

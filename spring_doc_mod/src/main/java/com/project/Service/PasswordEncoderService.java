@@ -12,8 +12,8 @@ public class PasswordEncoderService implements IPasswordEncoderService{
 
 	public String encodePassword(String originalPassword)
 	{
-		String salt = "salt";
-		String saltedOriginalPassword = salt + originalPassword;
+		String salt = "Salt";
+		String saltedOriginalPassword =  originalPassword + salt ;
 		String encryptedPassword = Hashing.sha256()
 								    .hashString(saltedOriginalPassword, StandardCharsets.UTF_8)
 								    .toString();

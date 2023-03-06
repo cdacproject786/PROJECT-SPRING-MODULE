@@ -35,8 +35,8 @@ public class ImageUploadController {
 			System.out.println("Entered controller");
 			String fileName = this.fileUploadService.uploadImage(path, image);
 			
-			//String uploadedUrl = this.cloudUploadService.uploadOnCloud(fileName);
-			
+			String uploadedUrl = this.cloudUploadService.uploadOnCloud(fileName);
+			System.out.println(uploadedUrl);
 			
 			return new ResponseEntity<>(new FileResponse(fileName, "Image uploaded successfully"),HttpStatus.OK);
 		}

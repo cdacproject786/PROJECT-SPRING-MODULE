@@ -17,6 +17,8 @@ public class PatientMedRecordController {
 	@GetMapping("/patient/medrecord/{abhaaNumber}")
 	public PatientMedRecordForDisplay getPatientMedRecord(@PathVariable String abhaaNumber)
 	{
-		return this.patientMedRecordService.getRecord(abhaaNumber);
+		PatientMedRecordForDisplay record = this.patientMedRecordService.getRecord(abhaaNumber);
+		return record;
+		
 	}
 }

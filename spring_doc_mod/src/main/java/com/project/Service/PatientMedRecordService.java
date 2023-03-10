@@ -11,7 +11,15 @@ public class PatientMedRecordService implements IPatientMedRecordService{
 	
 	public PatientMedRecordForDisplay getRecord(String abhaaNumber)
 	{
-		return com.project.jdbc.utils.PatientMedRecordRepository.getPatientMedRecord(abhaaNumber);
+		try
+		{
+			return com.project.jdbc.utils.PatientMedRecordRepository.getPatientMedRecord(abhaaNumber);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	

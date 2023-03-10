@@ -13,7 +13,7 @@ public class CreateJdbcConnection {
 			String path = "com.mysql.cj.jdbc.Driver";
 			String username = "root";
 			String password = "root";
-			String url = "jdbc:mysql://localhost:3306/project23";
+			String url = "jdbc:mysql://localhost:3306/test";
 			Class.forName(path);
 			Connection con = DriverManager.getConnection(url, username, password);
 			return con;

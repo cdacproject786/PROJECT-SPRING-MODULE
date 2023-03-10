@@ -143,12 +143,14 @@ public class DoctorPrimaryController {
 		//implementing the email sender code
 		
 		
+		
 		  this.emailSenderService.sendSimpleEmail(doctor.getEmail(),
 		  "<h1>You have been successfully logged into patient management system app.</h1>"
 		  + "<h4>All future communications will be done through this email </h4>"
 		  +"<h4>Your user-id is:"+doctor.getDoctorId()+"</h4>",
 		  "Welcome to patient history management app");
 		  System.out.println("mail sent");
+		 
 		 
 		 
 	    return new ResponseEntity<>(doctor,HttpStatus.OK);
@@ -171,8 +173,12 @@ public class DoctorPrimaryController {
 	}
 
 	@PostMapping("/doctor/login")
-	public boolean validateLogin(@RequestBody LoginProxy proxy)
+	public ResponseEntity<Boolean> validateLogin(@RequestBody LoginProxy proxy)
 	{
-		return this.loginService.ValidateDoctorLogin(proxy);
+		Boolean isPresent =  this.loginService.ValidateDoctorLogin(proxy);
+		if(isPresent)
+		return new ResponseEntity<>(true,HttpStatus.OK);
+		else
+		return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
 	}
 }

@@ -20,7 +20,7 @@ public class ResetPasswordController {
 	@Autowired
 	private ResetPasswordService restPasswordService;
 	
-	@PostMapping("/resetpassword")
+	@PostMapping("/doctor/resetpassword")
 	public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordProxy proxy)
 	{
 		try

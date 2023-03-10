@@ -21,7 +21,7 @@ public class OtpImplController {
 	@Autowired
 	EmailSenderService emailSenderService;
 
-	@PostMapping("/forgotpassword")
+	@PostMapping("/doctor/forgotpassword")
 	public ResponseEntity<String> generateOtp(@RequestBody EmailProxy emailProxy)
 	{
 		try
@@ -37,7 +37,7 @@ public class OtpImplController {
 
 	}
 	
-	@PostMapping("/validateotp")
+	@PostMapping("/doctor/validateotp")
 	public ResponseEntity<OtpValidationProxy> validateOtp(@RequestBody OtpValidationProxy otp)
 	{
 		boolean isValiodated = this.otpService.validateOtpService(otp.getOtp());

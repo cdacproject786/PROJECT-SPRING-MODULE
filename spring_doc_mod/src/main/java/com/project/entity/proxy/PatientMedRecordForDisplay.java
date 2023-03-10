@@ -41,6 +41,11 @@ public class PatientMedRecordForDisplay {
 	public void setBloodGroup(String bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
+	@Override
+	public String toString() {
+		return "PatientMedRecordForDisplay [bloodPressure=" + bloodPressure + ", weight=" + weight + ", sugarLevel="
+				+ sugarLevel + ", bloodGroup=" + bloodGroup + "]";
+	}
 	
 	
 	

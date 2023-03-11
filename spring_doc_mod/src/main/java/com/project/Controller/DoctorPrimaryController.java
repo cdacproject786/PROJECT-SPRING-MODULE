@@ -101,19 +101,20 @@ public class DoctorPrimaryController {
 		//checking for duplicate in doctor-med-registration
 		boolean ismedIdPresent = this.uniqueKeyCheckService.checkDuplicateMedRegistration(registration.getMedicalRegId());
 		//if the med registration id is already present then exeption will be thrown
+		System.out.println("1");
 		if(ismedIdPresent)
 		throw new UniqueKeyExistException("Registration id already Exist");
-		
+		System.out.println("2");
 		//checking for email 
 		boolean isEmailPresent = this.uniqueKeyCheckService.checkDuplicateEmail(proxy.getEmail());
 		if(isEmailPresent)
 		throw new UniqueKeyExistException("Email Id already exists in database");
-		
+		System.out.println("3");
 		//checking for adhaarCard
 		boolean isAdhaarPresent = this.uniqueKeyCheckService.checkDuplicateAdhaar(proxy.getAdhaarCard());
 		if(isAdhaarPresent)
 		throw new UniqueKeyExistException("Adhaar No already exists in database");
-	
+		System.out.println("4");
 		//checking for panCard
 		boolean isPanPresent = this.uniqueKeyCheckService.checkDuplicatePanCard(proxy.getPanCard());
 		if(isPanPresent)
@@ -123,7 +124,7 @@ public class DoctorPrimaryController {
 		boolean isPhonePresent = this.uniqueKeyCheckService.checkDuplicatePhone(proxy.getPhoneNumber());
 		if(isPhonePresent)
 		throw new UniqueKeyExistException("Phone No already exists in database");	
-		
+		System.out.println("5");
 		DoctorMedRegistration insertDoctorMed = doctorMedRegistrationController.insertDoctorMed(registration);
 		
 		
@@ -159,11 +160,13 @@ public class DoctorPrimaryController {
 		
 		catch(ConstraintViolationException e)
 		{
+			e.printStackTrace();
 			return new ResponseEntity<>(null,HttpStatus.CONFLICT);
 		}
 		catch (Exception e)
 		{
 			//transacation.rollback();
+			e.printStackTrace();
 			return new ResponseEntity<>(null,HttpStatus.CONFLICT);
 		}
 		

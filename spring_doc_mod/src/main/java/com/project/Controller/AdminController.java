@@ -44,7 +44,7 @@ public class AdminController {
 		}
 	
 
-	@PostMapping("/admin/doctor")
+	@PostMapping("/admin/doctors")
 	public ResponseEntity updateDoctor(@RequestBody DoctorPrimary doctorPrimary)
 	{
 		 this.adminService.updateDoctor(doctorPrimary);

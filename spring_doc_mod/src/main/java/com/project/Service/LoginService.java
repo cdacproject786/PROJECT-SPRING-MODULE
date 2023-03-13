@@ -22,18 +22,18 @@ public class LoginService implements ILoginService {
 	@Autowired
 	private PasswordEncoderService passwordEncoderServie;
 	
-	public boolean ValidateDoctorLogin(LoginProxy proxy)
+	public DoctorPrimary ValidateDoctorLogin(LoginProxy proxy)
 	{
 		DoctorPrimary primary = this.doctorPrimaryRepository.findByemail(proxy.getEmail());
 		if(primary!= null)
 		{
 			if(primary.getPwd().equals(this.passwordEncoderServie.encodePassword(proxy.getPwd())))
-			return true;
+			return primary;
 			else
-			return false;
+			return null;
 		}
 		else
-		return false;
+		return null;
 		
 	}
 

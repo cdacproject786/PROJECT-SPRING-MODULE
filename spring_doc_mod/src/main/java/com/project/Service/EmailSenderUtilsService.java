@@ -3,15 +3,28 @@ package com.project.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.project.IService.IEmailSenderUtilsService;
+import com.project.exception.DataDoesntExistException;
 
 public class EmailSenderUtilsService implements IEmailSenderUtilsService{
 	
 	@Autowired
 	private EmailSenderService emailSenderService;
 	
-	public void triggerMail(String email)
+	@Autowired 
+	private OtpService otpService;
+	
+	public void triggerMail(String email) throws DataDoesntExistException
 	{
-		this.emailSenderService.sendSimpleEmail(email, "Body of email", "Welcome to Patient-management app");
+		int otp = 0;
+		
+			otp = otpService.generateOtp(email);
+		
+			// TODO Auto-generated catch block
+			
+		
+		this.emailSenderService.sendSimpleEmail(email, "Your otp requestd by doctor is"+otp, "Welcome to Patient-management app");
 	}
+	
+	
 
 }

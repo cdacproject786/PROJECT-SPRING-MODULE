@@ -25,7 +25,7 @@ public class EmailSenderService implements IEmailSenderService{
 		message.setTo(toEmail);
 		message.setSubject(subject);
 		message.setText(body);
-		message.setFrom("med_history_app@otlook.com");
+		message.setFrom("testmedlog09@gmail.com");
 		
 		mailSender.send(message);
 		

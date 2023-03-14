@@ -6,6 +6,7 @@ import java.sql.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public class ResetPasswordController {
 	
 	@Autowired
 	private ResetPasswordService restPasswordService;
-	
+	@CrossOrigin("http://localhost:3000")
 	@PostMapping("/doctor/resetpassword")
 	public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordProxy proxy)
 	{

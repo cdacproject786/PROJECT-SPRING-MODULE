@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;import org.springf
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,7 +83,7 @@ public class DoctorPrimaryController {
 	@Autowired
 	private FetchEntireDoctorDataService fetchEntireDoctorDataService;
 	
-	
+	@CrossOrigin("http://localhost:3000")
 	@PostMapping("/doctor/register")
 	@Transactional
 	public ResponseEntity<DoctorPrimary> registerDoctor(@RequestBody DoctorPrimaryRegistrationProxy proxy)
@@ -182,6 +183,7 @@ public class DoctorPrimaryController {
 		
 	}
 
+	@CrossOrigin("http://localhost:3000")
 	@PostMapping("/doctor/login")
 	public ResponseEntity<DoctorPrimary> validateLogin(@RequestBody LoginProxy proxy)
 	{
@@ -192,6 +194,7 @@ public class DoctorPrimaryController {
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 	}
 	
+	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/doctor/data/{email}")
 	public ResponseEntity<FetchDoctorDataProxy> getDoctorData(@PathVariable String email)
 	{

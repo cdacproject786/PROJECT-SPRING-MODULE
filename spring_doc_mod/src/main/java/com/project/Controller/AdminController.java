@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ public class AdminController {
 	@Autowired
 	private LoginService loginService;
 	
+	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/admin/doctor")
 	public ResponseEntity<List<DoctorPrimary>> getAllDoctors()
 	{
@@ -44,12 +46,14 @@ public class AdminController {
 		}
 	
 
+	@CrossOrigin("http://localhost:3000")
 	@PostMapping("/admin/doctors")
 	public ResponseEntity updateDoctor(@RequestBody DoctorPrimary doctorPrimary)
 	{
 		 this.adminService.updateDoctor(doctorPrimary);
 		 return new ResponseEntity<>(HttpStatus.OK);
 	}
+	@CrossOrigin("http://localhost:3000")
 	@GetMapping("/admin/patient")
 	public ResponseEntity<List<PatientPrimary>> getAllPatient()
 	{
@@ -64,7 +68,7 @@ public class AdminController {
 		}
 	}
 	
-	
+	@CrossOrigin("http://localhost:3000")
     @GetMapping("/admin/doctors")
     public ResponseEntity<List<DoctorPrimary>> getUnverifiedDoctors()
     {
@@ -79,7 +83,7 @@ public class AdminController {
     	}
     
     }
-    
+	@CrossOrigin("http://localhost:3000")
     @PostMapping("/admin/login")
     public ResponseEntity<Boolean> loginAdmin(@RequestBody AdminPrimary adminPrimary)
     {

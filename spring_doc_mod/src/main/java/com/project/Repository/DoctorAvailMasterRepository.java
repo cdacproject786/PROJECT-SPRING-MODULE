@@ -6,4 +6,5 @@ import com.project.entity.DoctorAvailMaster;
 
 public interface DoctorAvailMasterRepository extends JpaRepository<DoctorAvailMaster, Integer> {
 
+	public DoctorAvailMaster findBydoctorId(int id);
 }

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;import org.springf
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Service.DoctorPrimaryServive;
 import com.project.Service.EmailSenderService;
+import com.project.Service.FetchEntireDoctorDataService;
 import com.project.Service.LoginService;
 import com.project.Service.ObjectCreationService;
 import com.project.Service.PasswordEncoderService;
@@ -35,7 +38,9 @@ import com.project.entity.DoctorMedRegistration;
 import com.project.entity.DoctorPrimary;
 import com.project.entity.SecurityQuestions;
 import com.project.entity.proxy.DoctorPrimaryRegistrationProxy;
+import com.project.entity.proxy.FetchDoctorDataProxy;
 import com.project.entity.proxy.LoginProxy;
+import com.project.exception.DataDoesntExistException;
 import com.project.exception.UniqueKeyExistException;
 import com.project.payload.FileResponse;
 @RestController
@@ -73,6 +78,9 @@ public class DoctorPrimaryController {
 	
 	@Autowired
 	private ObjectCreationService objectCreationService;
+	
+	@Autowired
+	private FetchEntireDoctorDataService fetchEntireDoctorDataService;
 	
 	
 	@PostMapping("/doctor/register")
@@ -182,5 +190,16 @@ public class DoctorPrimaryController {
 		return new ResponseEntity<>(primary,HttpStatus.OK);
 		else
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+	}
+	
+	@GetMapping("/doctor/data/{email}")
+	public ResponseEntity<FetchDoctorDataProxy> getDoctorData(@PathVariable String email)
+	{
+		try {
+			FetchDoctorDataProxy doctorData = this.fetchEntireDoctorDataService.getDoctorData(email);
+			return new ResponseEntity<>(doctorData, HttpStatus.OK);
+		} catch (DataDoesntExistException e) {
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+		}
 	}
 }

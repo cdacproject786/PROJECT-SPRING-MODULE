@@ -17,12 +17,9 @@ public class EmailSenderUtilsService implements IEmailSenderUtilsService{
 	{
 		int otp = 0;
 		
-			otp = otpService.generateOtp(email);
+			otp = otpService.generateOtpForPatient(email);
 		
-			// TODO Auto-generated catch block
-			
-		
-		this.emailSenderService.sendSimpleEmail(email, "Your otp requestd by doctor is"+otp, "Welcome to Patient-management app");
+			this.emailSenderService.sendSimpleEmail(email, "Your otp requestd by doctor is"+otp, "Welcome to Patient-management app");
 	}
 	
 	

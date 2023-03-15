@@ -185,24 +185,36 @@ public class DoctorPrimaryController {
 
 	@CrossOrigin("http://localhost:3000")
 	@PostMapping("/doctor/login")
-	public ResponseEntity<DoctorPrimary> validateLogin(@RequestBody LoginProxy proxy)
+	public ResponseEntity<FetchDoctorDataProxy> validateLogin(@RequestBody LoginProxy proxy)
 	{
 		DoctorPrimary primary =  this.loginService.ValidateDoctorLogin(proxy);
 		if(primary != null)
-		return new ResponseEntity<>(primary,HttpStatus.OK);
-		else
-		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-	}
-	
-	@CrossOrigin("http://localhost:3000")
-	@GetMapping("/doctor/data/{email}")
-	public ResponseEntity<FetchDoctorDataProxy> getDoctorData(@PathVariable String email)
-	{
-		try {
-			FetchDoctorDataProxy doctorData = this.fetchEntireDoctorDataService.getDoctorData(email);
-			return new ResponseEntity<>(doctorData, HttpStatus.OK);
-		} catch (DataDoesntExistException e) {
-			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+		{
+			String email = primary.getEmail();
+			try {
+				FetchDoctorDataProxy doctorData = this.fetchEntireDoctorDataService.getDoctorData(email);
+				return new ResponseEntity<>(doctorData,HttpStatus.OK);
+			} catch (DataDoesntExistException e) {
+				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+			    
+			}
+		
 		}
+		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+		
 	}
+
+	
+	
+	/*
+	 * @CrossOrigin("http://localhost:3000")
+	 * 
+	 * @GetMapping("/doctor/data/{email}") public
+	 * ResponseEntity<FetchDoctorDataProxy> getDoctorData(@PathVariable String
+	 * email) { try { FetchDoctorDataProxy doctorData =
+	 * this.fetchEntireDoctorDataService.getDoctorData(email); return new
+	 * ResponseEntity<>(doctorData, HttpStatus.OK); } catch
+	 * (DataDoesntExistException e) { return new ResponseEntity<>(null,
+	 * HttpStatus.UNAUTHORIZED); } }
+	 */
 }

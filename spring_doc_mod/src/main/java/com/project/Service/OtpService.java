@@ -35,7 +35,9 @@ public class OtpService implements IOtpService{
 	
 	public int generateOtpForPatient(String email) throws DataDoesntExistException
 	{
-		PatientPrimary primary = patientPrimaryRepository.findByemail(email);
+		
+		String primary = patientPrimaryRepository.Checkemail(email);
+		
 		if(primary == null)
 		throw new DataDoesntExistException("The email doesnt exist in database");
 		

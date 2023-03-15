@@ -29,9 +29,9 @@ import javax.persistence.UniqueConstraint;
 public class PatientPrimary implements java.io.Serializable {
 
 	private int uid;
-	private Address address;
-	private PatientMedRecord patientMedRecord;
-	private SecurityQuestions securityQuestions;
+	private int address;
+	//private int patiMedRecord;
+	private int securityQuestions;
 	private String profilePhoto;
 	private String fname;
 	private String lname;
@@ -68,13 +68,13 @@ public class PatientPrimary implements java.io.Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public PatientPrimary(Address address, PatientMedRecord patientMedRecord, SecurityQuestions securityQuestions,
+	public PatientPrimary(int address, int patientMedRecord, int securityQuestions,
 			String profilePhoto, String fname, String lname, String email, String pwd, Date dateOfBirth,
 			String adhaarCard, String phone, char gender, char maritalStatus, String occupation,
 			String securityQuestionsAnswer, Date lastUpdated, String extCol1, String extCol2, String extCol3,
 			Set patientMedLogs) {
 		this.address = address;
-		this.patientMedRecord = patientMedRecord;
+		//this.patientMedRecord = patientMedRecord;
 		this.securityQuestions = securityQuestions;
 		this.profilePhoto = profilePhoto;
 		this.fname = fname;
@@ -110,33 +110,32 @@ public class PatientPrimary implements java.io.Serializable {
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@Join
 	@Column(name = "ADDRESS_ID", unique = true)
-	public Address getAddress() {
+	public int getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(int address) {
 		this.address = address;
 	}
 
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@Join
-	@Column(name = "MED_RECORD_ID")
-	public PatientMedRecord getPatientMedRecord() {
-		return this.patientMedRecord;
-	}
-
-	public void setPatientMedRecord(PatientMedRecord patientMedRecord) {
-		this.patientMedRecord = patientMedRecord;
-	}
+	//@Column(name = "MED_RECORD_ID")
+	/*
+	 * public int getPatientMedRecord() { return this.patientMedRecord; }
+	 * 
+	 * public void setPatientMedRecord(int patientMedRecord) { this.patientMedRecord
+	 * = patientMedRecord; }
+	 */
 
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@Join
 	@Column(name = "SECURITY_QUESTIONS_ID", unique = true)
-	public SecurityQuestions getSecurityQuestions() {
+	public int getSecurityQuestions() {
 		return this.securityQuestions;
 	}
 
-	public void setSecurityQuestions(SecurityQuestions securityQuestions) {
+	public void setSecurityQuestions(int securityQuestions) {
 		this.securityQuestions = securityQuestions;
 	}
 

@@ -26,7 +26,9 @@ public class PatientMailSenderController {
 	public ResponseEntity<?> sendEmail(@PathVariable String email)
 	{
 		try {
+			System.out.println("Inside controller before call");
 			this.emailSenderUtilsService.triggerMail(email);
+			System.out.println("Inside controller after call");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (DataDoesntExistException e) {
 			// TODO Auto-generated catch block
